@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UserSide/MainMaster.master" AutoEventWireup="true" CodeFile="UserDash.aspx.cs" Inherits="UserSide_UserDash" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UserSide/MainMaster.Master" AutoEventWireup="true" CodeBehind="UserDash.aspx.cs" Inherits="LibraryManagement.UserSide.UserDash" Async="true" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <!-- TOP Nav Bar -->
@@ -118,47 +118,73 @@
                             </div>
                         </div>
                         <div class="iq-card-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-4 col-lg-3">
-                                    <div class="iq-card iq-card-block iq-card-stretch iq-card-height browse-bookcontent">
-                                        <div class="iq-card-body p-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="col-6 p-0 position-relative image-overlap-shadow">
-                                                    <a href="javascript:void();">
-                                                        <img class="img-fluid rounded w-100" src="../images/browse-books/01.jpg" alt=""></a>
-                                                    <div class="view-book">
-                                                        <a href="book-page.html" class="btn btn-sm btn-white">View Book</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="mb-2">
-                                                        <h6 class="mb-1">Reading on the World</h6>
-                                                        <p class="font-size-13 line-height mb-1">Jhone Steben</p>
-                                                        <div class="d-block line-height">
-                                                            <span class="font-size-11 text-warning">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </span>
+                             <div id="form2" runat="server">
+                        <div>
+                            <label for="queryInput">Enter Search Query:</label>
+                            <asp:TextBox ID="queryInput" runat="server"></asp:TextBox>
+                            <asp:Button ID="fetchButton" runat="server" Text="Search" OnClick="fetchButton_Click" />
+                        </div>
+                        <hr />
+                        <div>
+                            <asp:Repeater ID="booksRepeater" runat="server">
+                                <ItemTemplate>
+                                    <%--<div>
+                        <h3><%# Eval("Title") %></h3>
+                        <p><strong>Author:</strong> <%# Eval("Author") %></p>
+                        <p><strong>Publisher:</strong> <%# Eval("Publisher") %></p>
+                        <p><strong>Published Date:</strong> <%# Eval("PublishedDate") %></p>
+                        <p><strong>Description:</strong> <%# Eval("Description") %></p>
+                        <p><strong>Page Count:</strong> <%# Eval("PageCount") %></p>
+                        <div>
+                            <asp:Image ID="thumbnailImage" runat="server" ImageUrl='<%# Eval("Thumbnail") %>' />
+                        </div>
+                    </div>--%>
+
+                                    <br />
+                                    <br />
+                                    <div class="col-sm-6 col-md-4 col-lg-3">
+                                        <div class="iq-card iq-card-block iq-card-stretch iq-card-height browse-bookcontent">
+                                            <div class="iq-card-body p-0">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="col-6 p-0 position-relative image-overlap-shadow">
+                                                        <a href="javascript:void();">
+                                                            
+                                                             <asp:Image ID="thumbnailImage" CssClass="img-fluid rounded w-100" runat="server" ImageUrl='<%# Eval("Thumbnail") %>' />
+                                                        </a>
+
+                                                        <div class="view-book">
+                                                            <a href="OrderBook.aspx?otitle=<%# Eval("Id") %>" class="btn btn-sm btn-white">View Book</a>
                                                         </div>
                                                     </div>
-                                                    <div class="price d-flex align-items-center">
-                                                        <span class="pr-1 old-price">$100</span>
-                                                        <h6><b>$89</b></h6>
-                                                    </div>
-                                                    <div class="iq-product-action">
-                                                        <a href="javascript:void();"><i class="ri-shopping-cart-2-fill text-primary"></i></a>
-                                                        <a href="javascript:void();" class="ml-2"><i class="ri-heart-fill text-danger"></i></a>
+                                                    <div class="col-6">
+                                                        <div class="mb-2">
+                                                            <h6 class="mb-1"><%# Eval("Title") %></h6>
+                                                            <p class="font-size-13 line-height mb-1"><%# Eval("Author") %></p>
+                                                            <div class="d-block line-height">
+                                                                <span class="font-size-11 text-warning">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="price d-flex align-items-center">
+                                                            <span class="pr-1 old-price">$100</span>
+                                                            <h6><b>$89</b></h6>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                            </div>
+
+                                    <hr />
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -166,4 +192,3 @@
         </div>
     </div>
 </asp:Content>
-
